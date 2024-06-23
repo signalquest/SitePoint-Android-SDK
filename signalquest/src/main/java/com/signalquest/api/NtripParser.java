@@ -16,6 +16,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.signalquest.api.utils.CircularByteBuffer;
+import com.signalquest.api.utils.Logging;
 import com.signalquest.api.utils.StableBuffer;
 import com.signalquest.swig.ntrip.Error_Status_t;
 import com.signalquest.swig.ntrip.NTRIP_Header_Info_t;
@@ -26,8 +27,6 @@ import com.signalquest.swig.ntrip.NTRIP_Parse_Types_t;
 
 import java.util.Arrays;
 import java.util.List;
-
-/* TODO SignalPoint instead of SitePoint throughout Javadoc comments? */
 
 /**
  * Parses the NTRIP authorization and RTCM messages.
@@ -100,24 +99,43 @@ public class NtripParser {
      * Results retrieved by calling {@link #next(int)}.
      *
      * @param data The bytes, after a successful authorization response, from the aiding NTRIP server
+     *
+     * @throws ParseException with a message to relay to SignalQuest.
      */
     @SuppressWarnings("unused")
-    public void parseRtcm(@NonNull byte[] data) {
-        NTRIP_Parse(context, data, data.length);
+    public void parseRtcm(@NonNull byte[] data) throws ParseException {
+        NTRIP_Parse_Return_t status = NTRIP_Parse(context, data, data.length);
+        if (status.swigValue() < 0) {
+            throw new ParseException(data, status);
+        }
     }
 
     /**
      * Parses an NTRIP server authorization response.
      *
      * @param data The initial response bytes from an NTRIP server aiding request
+     *
+     * @return AuthorizationResult
+     *   <ol><li>INSUFFICIENT_DATA: Pass in the next response chunk.</li><li>SUCCESS: Authorization succeeded.</li></ol>
+     *
+     * @throws AuthorizationFailure containing detail on why the authorization failed.
      */
     @SuppressWarnings("unused")
-    public void parseAuthorized(@NonNull byte[] data) throws AuthorizationFailure {
-        NTRIP_Parse_Return_t myReturnStatus = NTRIP_Parse(context, data, data.length);
+    public AuthorizationResult parseAuthorized(@NonNull byte[] data) throws AuthorizationFailure {
+        NTRIP_Parse_Return_t parsed = NTRIP_Parse(context, data, data.length);
+        if (parsed.swigValue() < 0) {
+            Log.w(LOG_TAG, "Error parsing authorization input stream: '" + Logging.asHex(data) + "'");
+            throw new AuthorizationFailure(parsed.toString(), "Error parsing authorization input stream");
+        }
         NTRIP_Header_Info_t header = context.getHeader();
         if (header.getAuthorized()) {
-            return;
+            return AuthorizationResult.SUCCESS;
         }
+        boolean needMoreData = NTRIP_NO_MESSAGE_PENDING == parsed;
+        if (needMoreData) {
+            return AuthorizationResult.INSUFFICIENT_DATA;
+        }
+
         NTRIP_Parse_Poll_t poll = context.getPoll();
         Error_Status_t status = header.getError_Status();
         String responseText = header.getFirst_HTTP_Reply_string();
@@ -161,7 +179,7 @@ public class NtripParser {
         } else if (status == NTRIP_NO_MESSAGE_PENDING) {
             Log.d(LOG_TAG, "parseRtcm done, no message pending");
         } else {
-            Log.w(LOG_TAG, "parseRtcm done with status " + status + " and type " + type);
+            Log.w(LOG_TAG, "parseRtcm neither pending nor not pending; please report to SignalQuest: status " + status + " and type " + type);
         }
     }
 
@@ -171,7 +189,7 @@ public class NtripParser {
     }
 
     /**
-     * Indicates an NTRIP authorization failure.
+     * Detail for an NTRIP authorization failure.
      */
     public static class AuthorizationFailure extends Exception {
         public String summary;
@@ -182,4 +200,20 @@ public class NtripParser {
             this.details = details;
         }
     }
+
+    public static class ParseException extends Exception {
+        private ParseException(byte[] data, NTRIP_Parse_Return_t status) {
+            super("Unexpected " + status.toString() + " while parsing '" + Logging.asHex(data) + "'");
+        }
+    }
+
+    /**
+     * Whether the parsed data was insufficient (send the next response chunk) or was
+     * sufficient and correct for authorization.
+     */
+    public enum AuthorizationResult {
+        INSUFFICIENT_DATA,
+        SUCCESS,
+    }
+
 }

@@ -92,7 +92,7 @@ loadScripts(document, 'script');</script>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">Parses the NTRIP authorization and RTCM messages.
  <p>
- The <a href="NtripParser.RtcmReceiver.html" title="interface in com.signalquest.api"><code>NtripParser.RtcmReceiver</code></a> gets called for each full message received.
+ NTRIP responses can contain multiple and partial RTCM messages.
  <p>
  Only SitePoint-handled RTCM message types are reported.</div>
 </section>
@@ -110,13 +110,17 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code>static class&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="NtripParser.AuthorizationFailure.html" class="type-name-link" title="class in com.signalquest.api">NtripParser.AuthorizationFailure</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">Indicates an NTRIP authorization failure.</div>
+<div class="block">Detail for an NTRIP authorization failure.</div>
 </div>
-<div class="col-first odd-row-color"><code>static interface&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="NtripParser.RtcmReceiver.html" class="type-name-link" title="interface in com.signalquest.api">NtripParser.RtcmReceiver</a></code></div>
+<div class="col-first odd-row-color"><code>static enum&nbsp;</code></div>
+<div class="col-second odd-row-color"><code><a href="NtripParser.AuthorizationResult.html" class="type-name-link" title="enum class in com.signalquest.api">NtripParser.AuthorizationResult</a></code></div>
 <div class="col-last odd-row-color">
-<div class="block">Receives RTCM messages, parsed with <a href="#parseRtcm(byte%5B%5D)"><code>parseRtcm(byte[])</code></a>, that can be written to a SitePoint RTCM characteristic.</div>
+<div class="block">Whether the parsed data was insufficient (send the next response chunk) or was
+ sufficient and correct for authorization.</div>
 </div>
+<div class="col-first even-row-color"><code>static class&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="NtripParser.ParseException.html" class="type-name-link" title="class in com.signalquest.api">NtripParser.ParseException</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -128,9 +132,9 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.signalquest.api.NtripParser.RtcmReceiver)" class="member-name-link">NtripParser</a><wbr>(<a href="NtripParser.RtcmReceiver.html" title="interface in com.signalquest.api">NtripParser.RtcmReceiver</a>&nbsp;receiver)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">NtripParser</a>()</code></div>
 <div class="col-last even-row-color">
-<div class="block">Creates an NTRIP parser with the given <a href="NtripParser.RtcmReceiver.html" title="interface in com.signalquest.api"><code>receiver</code></a>.</div>
+<div class="block">Creates an NTRIP parser.</div>
 </div>
 </div>
 </section>
@@ -146,14 +150,17 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#parseAuthorized(byte%5B%5D)" class="member-name-link">parseAuthorized</a><wbr>(byte[]&nbsp;data)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>byte[]</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#next(int)" class="member-name-link">next</a><wbr>(int&nbsp;maxLength)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="NtripParser.AuthorizationResult.html" title="enum class in com.signalquest.api">NtripParser.AuthorizationResult</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#parseAuthorized(byte%5B%5D)" class="member-name-link">parseAuthorized</a><wbr>(byte[]&nbsp;data)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Parses an NTRIP server authorization response.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#parseRtcm(byte%5B%5D)" class="member-name-link">parseRtcm</a><wbr>(byte[]&nbsp;data)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#parseRtcm(byte%5B%5D)" class="member-name-link">parseRtcm</a><wbr>(byte[]&nbsp;data)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Parses the RTCM messages.</div>
 </div>
 </div>
@@ -174,11 +181,10 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.signalquest.api.NtripParser.RtcmReceiver)">
+<section class="detail" id="&lt;init&gt;()">
 <h3>NtripParser</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">NtripParser</span><wbr><span class="parameters">(@NonNull
- <a href="NtripParser.RtcmReceiver.html" title="interface in com.signalquest.api">NtripParser.RtcmReceiver</a>&nbsp;receiver)</span></div>
-<div class="block">Creates an NTRIP parser with the given <a href="NtripParser.RtcmReceiver.html" title="interface in com.signalquest.api"><code>receiver</code></a>.</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">NtripParser</span>()</div>
+<div class="block">Creates an NTRIP parser.</div>
 </section>
 </li>
 </ul>
@@ -193,30 +199,42 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="parseRtcm(byte[])">
 <h3>parseRtcm</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">parseRtcm</span><wbr><span class="parameters">(@NonNull
- byte[]&nbsp;data)</span></div>
+ byte[]&nbsp;data)</span>
+               throws <span class="exceptions"><a href="NtripParser.ParseException.html" title="class in com.signalquest.api">NtripParser.ParseException</a></span></div>
 <div class="block">Parses the RTCM messages.
  <p>
  Call after authorization is confirmed using <a href="#parseAuthorized(byte%5B%5D)"><code>parseAuthorized(byte[])</code></a>.
- Results are sent to the given <a href="NtripParser.RtcmReceiver.html" title="interface in com.signalquest.api"><code>NtripParser.RtcmReceiver</code></a>.</div>
+ Results retrieved by calling <a href="#next(int)"><code>next(int)</code></a>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>data</code> - The bytes, after a successful authorization response, from the aiding NTRIP server</dd>
+<dt>Throws:</dt>
+<dd><code><a href="NtripParser.ParseException.html" title="class in com.signalquest.api">NtripParser.ParseException</a></code> - with a message to relay to SignalQuest.</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="parseAuthorized(byte[])">
 <h3>parseAuthorized</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">parseAuthorized</span><wbr><span class="parameters">(@NonNull
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="NtripParser.AuthorizationResult.html" title="enum class in com.signalquest.api">NtripParser.AuthorizationResult</a></span>&nbsp;<span class="element-name">parseAuthorized</span><wbr><span class="parameters">(@NonNull
  byte[]&nbsp;data)</span>
-                     throws <span class="exceptions"><a href="NtripParser.AuthorizationFailure.html" title="class in com.signalquest.api">NtripParser.AuthorizationFailure</a></span></div>
+                                                throws <span class="exceptions"><a href="NtripParser.AuthorizationFailure.html" title="class in com.signalquest.api">NtripParser.AuthorizationFailure</a></span></div>
 <div class="block">Parses an NTRIP server authorization response.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>data</code> - The initial response bytes from an NTRIP server aiding request</dd>
+<dt>Returns:</dt>
+<dd>AuthorizationResult
+   <ol><li>INSUFFICIENT_DATA: Pass in the next response chunk.</li><li>SUCCESS: Authorization succeeded.</li></ol></dd>
 <dt>Throws:</dt>
-<dd><code><a href="NtripParser.AuthorizationFailure.html" title="class in com.signalquest.api">NtripParser.AuthorizationFailure</a></code></dd>
+<dd><code><a href="NtripParser.AuthorizationFailure.html" title="class in com.signalquest.api">NtripParser.AuthorizationFailure</a></code> - containing detail on why the authorization failed.</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="next(int)">
+<h3>next</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="element-name">next</span><wbr><span class="parameters">(int&nbsp;maxLength)</span></div>
 </section>
 </li>
 </ul>
