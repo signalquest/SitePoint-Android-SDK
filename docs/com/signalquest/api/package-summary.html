@@ -71,7 +71,7 @@ loadScripts(document, 'script');</script>
 <ul class="summary-list">
 <li>
 <div id="class-summary">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="class-summary-tab0" role="tab" aria-selected="true" aria-controls="class-summary.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="class-summary-tab1" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab1', 2)" class="table-tab">Interfaces</button><button id="class-summary-tab2" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab2', 2)" class="table-tab">Classes</button><button id="class-summary-tab5" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab5', 2)" class="table-tab">Exception Classes</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="class-summary-tab0" role="tab" aria-selected="true" aria-controls="class-summary.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary', 2)" class="active-table-tab">All Classes and Interfaces</button><button id="class-summary-tab1" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab1', 2)" class="table-tab">Interfaces</button><button id="class-summary-tab2" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab2', 2)" class="table-tab">Classes</button><button id="class-summary-tab3" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab3', 2)" class="table-tab">Enum Classes</button><button id="class-summary-tab5" role="tab" aria-selected="false" aria-controls="class-summary.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('class-summary', 'class-summary-tab5', 2)" class="table-tab">Exception Classes</button></div>
 <div id="class-summary.tabpanel" role="tabpanel">
 <div class="summary-table two-column-summary" aria-labelledby="class-summary-tab0">
 <div class="table-header col-first">Class</div>
@@ -98,18 +98,21 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NtripParser.AuthorizationFailure.html" title="class in com.signalquest.api">NtripParser.AuthorizationFailure</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab5">
-<div class="block">Indicates an NTRIP authorization failure.</div>
+<div class="block">Detail for an NTRIP authorization failure.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="NtripParser.RtcmReceiver.html" title="interface in com.signalquest.api">NtripParser.RtcmReceiver</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">Receives RTCM messages, parsed with <a href="NtripParser.html#parseRtcm(byte%5B%5D)"><code>NtripParser.parseRtcm(byte[])</code></a>, that can be written to a SitePoint RTCM characteristic.</div>
+<div class="col-first even-row-color class-summary class-summary-tab3"><a href="NtripParser.AuthorizationResult.html" title="enum class in com.signalquest.api">NtripParser.AuthorizationResult</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab3">
+<div class="block">Whether the parsed data was insufficient (send the next response chunk) or was
+ sufficient and correct for authorization.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="ScanStatus.html" title="class in com.signalquest.api">ScanStatus</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NtripParser.ParseException.html" title="class in com.signalquest.api">NtripParser.ParseException</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="ScanStatus.html" title="class in com.signalquest.api">ScanStatus</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
 <div class="block">Contains the BLE scanning information.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="Status.html" title="class in com.signalquest.api">Status</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="Status.html" title="class in com.signalquest.api">Status</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Contains the sensor status information.</div>
 </div>
 </div>

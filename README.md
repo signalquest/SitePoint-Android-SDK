@@ -1,29 +1,12 @@
-## SWIG
+# SitePoint Android Java SDK
 
-SWIG generates the interface between the Java and C code. 
+The SitePoint Android Java SDK enables integration with SitePoint devices in Android applications.
 
-To run it, go to a directory with a SWIG config file, and use the command in the comment at the top of it. 
+## Resources
 
-For example, for NTRIP:
-1. Go to _[project dir]/app/src/main/cpp/ntrip_
-2. Run `swig -java -package com.signalquest.sdk.ntrip -outdir ../../java/com/signalquest/sdk/ntrip ntrip.i`. 
+- **Integration Guide**: For detailed instructions on integrating SitePoint using Java for Android, refer to the [Documentation and Getting Started Guide](https://signalquest.github.io/SitePoint-Android-Java-Example/).
+- **SDK Documentation**: Complete Javadoc for the SDK is available in the [SDK documentation](https://signalquest.github.io/SitePoint-Android-SDK/).
+- **Example Application**: To see a minimal implementation using the SitePoint Android Java SDK, check out the [SitePoint Android Java Example App](https://github.com/signalquest/SitePoint-Android-Java-Example).
+- **Product Information**: For additional information and resources, visit the [SitePoint product page](https://signalquest.com/product/rugged-package/sq-spt/) on the SignalQuest website.
 
-## Tests
-
-We're starting with tests to verify the Java/C bridge is implemented correctly. 
-
-To run these tests with _Android Studio_:
-1. Open one of the androidTest files (e.g. _app/src/androidTest/com/signalquest/sdk/ntrip/NtripTest.java_)
-2. Right-click inside the desired test block
-3. Choose the appropriate _Run_ command for the test
-
-## Building using Android Studio
-
-1. Choose the _release_ Build Variant (show option using *Build* -> *Select Build Variant...*)
-2. *Build* -> *Rebuild Project*
-3. Copy the _signalquest-release.aar_ file to the example app project
-   1. From \[this project dir\]/signalquest/build/outputs/aar/signalquest-release.aar
-   2. To \[example app project dir\]/app/libs/signalquest-release.aar
-4. Choose *File* -> *Invalidate Caches...*, then press *Invalidate and Restart*
-5. Wait for the example app to reindex
 
